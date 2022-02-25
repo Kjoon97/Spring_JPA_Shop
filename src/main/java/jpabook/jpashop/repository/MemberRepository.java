@@ -51,7 +51,8 @@ public class MemberRepository {
  *    @PersistenceContext
  *     private EntityManager em;
  *    (다른 방법: 스프링부트가 생성자 주입으로도 주입할 수 있게 지원함.)
- * 3. em.persist(member)하면 영속성 컨텍스트에 member엔티티객체를 넣고 트랜잭션이 커밋 되는 시점에 DB에 반영이된다.( DB에 insert쿼리 날라감)
+ * 3. em.persist(member)하면 영속성 컨텍스트에 member엔티티객체를 넣고 트랜잭션이 커밋되어야 DB에 반영이된다.( DB에 insert쿼리 날라감)
+ *    (트랜잭션이 커밋되지않으면 insert쿼리 안 날라감) 그래서 테스트할 때는 스프링의 @Transactianal은 트랜잭션을 커밋 안하고 롤백한다.
  *    persist()할때 영속성 컨텍스트에 값을 넣을 때 (key, value)가 정해져야하므로 member객체의 id값도 자동으로 채워준다.
  * 4. em.find(타입, 주요 키)  단건 조회.
  * 5. em.createQuery()로 JPQL 사용.
