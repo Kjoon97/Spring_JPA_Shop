@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class itemRepository {
+public class ItemRepository {
     private final EntityManager em;
 
     /**상품 등록하기*/
