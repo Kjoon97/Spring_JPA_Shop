@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //외부에서 OrderItem orderItem = new OrderItem(); orderItem.set()이런 식으로 생성 못하게 막음.
 public class OrderItem {
 
     @Id
@@ -28,6 +31,9 @@ public class OrderItem {
 
     private int orderPrice; //주문 가격
     private int count;     //주문 수량.
+
+//    protected OrderItem(){     //외부에서 OrderItem orderItem = new OrderItem(); orderItem.set()이런 식으로 생성 못하게 막음.
+//    }                          // (오직 createOrderItem()을 통해서 생성하기 위함 - 한가지 방법으로해야 유지보수하기 편함) /롬복@NoArgsConstructor(access = AccessLevel.PROTECTED)으로 대체 가능.
 
     //==생성 매서드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count){

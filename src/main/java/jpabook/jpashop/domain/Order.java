@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;  //@Entity,@Table,@ManyToOne,@Id,@GeneratedValue,@Column - JPA관련.
@@ -13,6 +15,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Table(name= "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
@@ -27,7 +30,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)   //CascadeType.ALL하면 Order persist할때 자동으로 orderItem도 persist해준다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)     //CascadeType.ALL하면 Order persist할때 자동으로 delivery도 persist해준다.
     @JoinColumn(name= "delivery_id")
     private Delivery delivery;
 
