@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,4 +39,12 @@ public class MemberController {
         memberService.join(member);
         return "redirect:/";
     }
+
+    @GetMapping("/members")
+    public String list(Model model){
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
+    }
+    /*여기서도 Member를 객체로 바로 반환하는 것보다 form같은 객체 DTO를 하나 만들어서 보내는 것을 권장한다.*/
 }
