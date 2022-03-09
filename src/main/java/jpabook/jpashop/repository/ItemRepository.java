@@ -17,7 +17,7 @@ public class ItemRepository {
         if(item.getId()==null){   //새로 생성된 item은 id가 없다. (jpa에 저장되기 전까지는 id가 없으므로)
             em.persist(item);
         }else{
-            em.merge(item);       // 기존에 있으면 업데이트
+            em.merge(item);       // 기존에 있으면 업데이트 ->병합방법. 준영속성이 merge에 들어가면 영속성 컨텍스트가 반환된다.
         }
     }
 
