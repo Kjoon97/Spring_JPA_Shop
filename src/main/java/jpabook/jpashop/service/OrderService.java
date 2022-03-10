@@ -8,9 +8,12 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -56,8 +59,10 @@ public class OrderService {
         //JPA가 아닌 다른 DB접근 기술은 직접 쿼리 문을 짜야한다.
     }
 
-
     //검색
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAll(orderSearch);
+    }
 }
 /**
  *  원래는 delivery, orderItem 각각 레포지토리 불러와서 save()를 해야되지만
