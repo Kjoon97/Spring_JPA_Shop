@@ -42,6 +42,12 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
 /**
  * 1.  @Transactional : JPA의 모든 데이터 변경,로직들은 가급적 트랜잭션안에서 실행이되어야함
