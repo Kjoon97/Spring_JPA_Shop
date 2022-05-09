@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create     # 애플리케이션 실행 시점에 내가 가지고 있는 테이블을 다 지우고 재 생성.
+      ddl-auto: none     # create - 애플리케이션 실행 시점에 내가 가지고 있는 테이블을 다 지우고 재 생성. / none - 안 지우고 계속 사용
     properties:
       hibernate:
 #        show_sql: true     #system.out.print로 출력하는 것
