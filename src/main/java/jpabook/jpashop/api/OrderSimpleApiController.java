@@ -48,7 +48,16 @@ public class OrderSimpleApiController {
         return result;
     }
 
-    @Data
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+        return result;
+    }//v2와 v3는 결과는 같으나 쿼리 날라가는 것이 다름. v2- 5번, v3-1번만에 끝남(fetch 조인 덕분)
+
+        @Data
     static class SimpleOrderDto{
         private Long orderId;
         private String name;

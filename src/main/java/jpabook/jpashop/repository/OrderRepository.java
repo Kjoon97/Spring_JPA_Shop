@@ -88,4 +88,12 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o"+
+                        " join fetch o.member m"+
+                        " join fetch o.delivery d", Order.class).getResultList();
+        //->Order조회하는데 order, delivery를 조인하면서 한번에 Oder와 같이 한방에 조회.
+        // 프록시가 아닌 진짜로 같이 조회함.
+    }
 }
