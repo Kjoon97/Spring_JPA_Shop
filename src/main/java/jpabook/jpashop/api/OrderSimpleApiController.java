@@ -5,6 +5,8 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1(){
@@ -57,7 +60,12 @@ public class OrderSimpleApiController {
         return result;
     }//v2와 v3는 결과는 같으나 쿼리 날라가는 것이 다름. v2- 5번, v3-1번만에 끝남(fetch 조인 덕분)
 
-        @Data
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> ordersV4(){
+        return orderSimpleQueryRepository.findOrderDtos();
+    }
+//v3와 v4는 장단점이 있으므로 우열을 가릴 수가 없다. v3는 재사용성이 높으나 쿼리가 많이 날라가고, v4는 재사용할 수 없으나 내가 원하는 항목들 위주로 쿼리가 만들어진다.
+    @Data
     static class SimpleOrderDto{
         private Long orderId;
         private String name;

@@ -2,6 +2,7 @@ package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -96,4 +97,6 @@ public class OrderRepository {
         //->Order조회하는데 order, delivery를 조인하면서 한번에 Oder와 같이 한방에 조회.
         // 프록시가 아닌 진짜로 같이 조회함.
     }
+
 }
+
