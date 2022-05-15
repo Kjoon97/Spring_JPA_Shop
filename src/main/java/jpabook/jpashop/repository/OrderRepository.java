@@ -98,5 +98,16 @@ public class OrderRepository {
         // 프록시가 아닌 진짜로 같이 조회함.
     }
 
+    public List<Order> findAllWithItem() {
+        return em.createQuery(  //distinct 기능 - db에 distinct 키워드를 날려주고 엔티티가 중복인 경우에 중복을 걸러서 컬렉션에 담아준다.
+                "select distinct o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d"+
+                " join fetch o.orderItems oi"+
+                " join fetch oi.item i", Order.class).getResultList();
+
+        //order가 2개이고 orderItems가 4개인데 조인하면 order가 4개 되버림.
+        //orderItems랑 패치 조인하게되면 일대 다 패치 조인이므로 데이터가 뻥튀기 되면서 페이징 처리도 할 수 없게된다.
+    }
 }
 
