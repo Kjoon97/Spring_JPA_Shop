@@ -109,5 +109,16 @@ public class OrderRepository {
         //order가 2개이고 orderItems가 4개인데 조인하면 order가 4개 되버림.
         //orderItems랑 패치 조인하게되면 일대 다 패치 조인이므로 데이터가 뻥튀기 되면서 페이징 처리도 할 수 없게된다.
     }
+
+    // Order와 ToOne 관계인 member와 delivery는
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o"+
+                        " join fetch o.member m"+
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
 
