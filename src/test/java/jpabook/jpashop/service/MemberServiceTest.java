@@ -6,11 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;   //다른 곳에서 참조할게 없으니깐 그냥 필드 주입해도된다.
+    @Autowired
+    MemberRepository memberRepository;   //다른 곳에서 참조할게 없으니깐 그냥 필드 주입해도된다.
    // @Autowired EntityManager em;
 
     @Test
@@ -34,7 +32,7 @@ class MemberServiceTest {
         Long savedId = memberService.join(member);
         //then
         //  em.flush();
-        assertEquals(member,memberRepository.findOne(savedId));
+        assertEquals(member,memberRepository.findById(savedId).get());
         //이게 가능한 이유는 @Transactional덕분에 각 jpa안에서 같은 트랜잭션안에서 pk값이 같으면 같은 영속성 컨텍스트에서 똑같은 애로 관리된다.
     }
 
